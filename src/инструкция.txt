@@ -1,0 +1,10 @@
+#
+npm install json-server
+
+#
+npm install react-router-dom
+
+#
+npx json-server src/db.json
+
+
