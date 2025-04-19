@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 function TodoForm({ onRequestAddTodos, isCreating }) {
 	const [title, setTitle] = useState('');
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!title.trim()) return;
@@ -17,8 +18,9 @@ function TodoForm({ onRequestAddTodos, isCreating }) {
 				onChange={(e) => setTitle(e.target.value)}
 				placeholder="Введите новую задачу"
 				className="todo-input"
+				disabled={isCreating}
 			/>
-			<button type="submit" disabled={isCreating} className="todo-button">
+			<button type="submit" className="todo-button" disabled={isCreating}>
 				Добавить
 			</button>
 		</form>

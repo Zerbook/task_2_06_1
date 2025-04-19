@@ -5,7 +5,7 @@ body {
 	background-color: #f0f0f0;
 }
 
-.App {
+.app {
 	max-width: 800px;
 	margin: 20px auto;
 	padding: 20px;
@@ -18,13 +18,6 @@ h1 {
 	text-align: center;
 	color: #333;
 	margin-bottom: 20px;
-}
-
-.loading,
-.error {
-	text-align: center;
-	color: #666;
-	padding: 20px;
 }
 
 .controls {
@@ -88,8 +81,6 @@ h1 {
 }
 
 .todo-list li {
-	display: flex;
-	align-items: center;
 	padding: 10px;
 	margin: 5px 0;
 	background-color: #f9f9f9;
@@ -103,27 +94,112 @@ h1 {
 	color: #666;
 }
 
-.todo-list li input {
-	margin-right: 10px;
+.todo-link {
+	text-decoration: none;
+	color: #333;
 }
 
-.todo-list li span {
-	flex-grow: 1;
+.todo-link:hover {
+	text-decoration: underline;
 }
 
+.task-page {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+	background: none;
+	border: none;
+	font-size: 18px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.task-title {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.edit-input {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin-bottom: 10px;
+}
+
+.edit-button,
+.save-button,
 .delete-button {
-	margin-left: 10px;
-	padding: 5px 10px;
-	background-color: #f44336;
-	color: white;
+	padding: 8px 16px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
-	font-size: 14px;
+	margin-right: 10px;
+}
+
+.edit-button {
+	background-color: #077bff;
+	color: white;
+}
+
+.edit-button:hover {
+	background-color: lch(49.81% 86.32 293.98);
+}
+
+.save-button {
+	background-color: #4caf50;
+	color: white;
+}
+
+.save-button:hover {
+	background-color: #45a049;
+}
+
+.delete-button {
+	background-color: #f44336;
+	color: white;
 }
 
 .delete-button:hover {
 	background-color: #da190b;
+}
+
+.not-found-page {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.home-button {
+	padding: 8px 16px;
+	background-color: #2196f3;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.home-button:hover {
+	background-color: #1976d2;
+}
+.task-page label {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+}
+
+.task-page input[type='checkbox'] {
+	margin-right: 10px;
 }
 
 .loader {
