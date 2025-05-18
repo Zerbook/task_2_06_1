@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
-	useRecuestGetTodos,
+	useRequestGetTodoById,
 	useRecuestUpdataTodos,
 	useRecuestDeleteTodos,
 } from '../hooks';
@@ -9,25 +9,24 @@ import {
 const TaskPage = () => {
 	const { id } = useParams(); // Получаем ID из URL
 	const navigate = useNavigate();
-	const [task, setTask] = useState(null);
+	// const [task, setTask] = useState(null);
 	const [editTitle, setEditTitle] = useState('');
 	const [isEditing, setIsEditing] = useState(false);
 
-	const { isLoading, todos } = useRecuestGetTodos();
+	const { isLoading, todo, error } = useRequestGetTodoById(id);
 	const { isUpdating, requestUpdateTodos } = useRecuestUpdataTodos(() => navigate('/'));
 	const { isDeleting, requestDeleteTodos } = useRecuestDeleteTodos(() => navigate('/'));
 
 	useEffect(() => {
-		if (!isLoading && todos.length > 0) {
-			const foundTask = todos.find((todo) => todo.id === id);
-			if (foundTask) {
-				setTask(foundTask);
-				setEditTitle(foundTask.title);
-			} else {
-				navigate('/404');
-			}
+		if (!isLoading && todo) {
+			setEditTitle(todo.title);
 		}
-	}, [isLoading, todos, id, navigate]);
+		// } else {
+		if (error) {
+			navigate('/404');
+		}
+		// }
+	}, [error, isLoading, todo, navigate]);
 
 	const handleEdit = () => {
 		setIsEditing(true);
@@ -35,20 +34,20 @@ const TaskPage = () => {
 
 	const handleSave = () => {
 		if (editTitle.trim()) {
-			requestUpdateTodos(id, { ...task, title: editTitle });
+			requestUpdateTodos(id, { ...todo, title: editTitle });
 			setIsEditing(false);
 		}
 	};
 
 	const handleToggleComplete = () => {
-		requestUpdateTodos(id, { ...task, completed: !task.completed });
+		requestUpdateTodos(id, { ...todo, completed: !todo.completed });
 	};
 
 	const handleDelete = () => {
 		requestDeleteTodos(id);
 	};
 
-	if (isLoading || !task) return <div className="loader">Загрузка...</div>;
+	if (isLoading || !todo) return <div className="loader">Загрузка...</div>;
 
 	return (
 		<div className="task-page">
@@ -74,15 +73,15 @@ const TaskPage = () => {
 				</div>
 			) : (
 				<div>
-					<p className="task-title">{task.title}</p>
+					<p className="task-title">{todo.title}</p>
 					<label>
 						<input
 							type="checkbox"
-							checked={task.completed}
+							checked={todo.completed}
 							onChange={handleToggleComplete}
 							disabled={isUpdating}
 						/>
-						{task.completed ? 'Выполнено' : 'Не выполнено'}
+						{todo.completed ? 'Выполнено' : 'Не выполнено'}
 					</label>
 					<div>
 						<button
